@@ -1,4 +1,5 @@
 ﻿using SignalR.BusinessLayer.Abstract;
+using SignalR.DataAccessLayer.Abstract;
 using SignalR.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,36 +11,41 @@ namespace SignalR.BusinessLayer.Concrete
 {
     public class ProductManager : IProductService
     {
-        private readonly IProductService _productService;
+        private readonly IProductDal _productDal;
 
-        public ProductManager(IProductService productService)
+        public ProductManager(IProductDal productDal)
         {
-            _productService = productService;
+            _productDal = productDal;
         }
 
         public void TAdd(Product entity)
         {
-            _productService.TAdd(entity);
+            _productDal.Add(entity);
         }
 
         public void TDelete(Product entity)
         {
-            _productService.TDelete(entity);
+            _productDal.Delete(entity);
         }
 
         public Product TGetByID(int id)
         {
-            return _productService.TGetByID(id);    
+            return _productDal.GetByID(id);    
         }
 
         public List<Product> TGetListAll()
         {
-            return _productService.TGetListAll();
+            return _productDal.GetListAll();
+        }
+
+        public List<Product> TGetProductsWithCategories()
+        {
+            return _productDal.GetProductsWithCategories();
         }
 
         public void TUpdate(Product entity)
         {
-            _productService.TUpdate(entity);
+            _productDal.Update(entity);
         }
     }
 }
