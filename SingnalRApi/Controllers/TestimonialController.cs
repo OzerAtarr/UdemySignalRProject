@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
-using SignalR.DtoLayer.CategoryDto;
-using SignalR.DtoLayer.FeatureDto;
 using SignalR.DtoLayer.TestimonialDto;
 using SignalR.EntityLayer.Entities;
 
@@ -44,7 +41,7 @@ namespace SingnalRApi.Controllers
             return Ok("Müşreti Yorum Bilgisi başarılı bir şekilde güncellendi.");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteTestimonial(int id)
         {
             var value = _testimonialService.TGetByID(id);
@@ -67,7 +64,7 @@ namespace SingnalRApi.Controllers
             return Ok("Müşreti Yorum Bilgisi başarılı bir şekilde güncellendi.");
         }
 
-        [HttpGet("GetTestimonial")]
+        [HttpGet("{id}")]
         public IActionResult GetTestimonial(int id)
         {
             var value = _testimonialService.TGetByID(id);

@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
-using SignalR.DtoLayer.AboutDto;
-using SignalR.DtoLayer.CategoryDto;
 using SignalR.DtoLayer.DiscountDto;
 using SignalR.EntityLayer.Entities;
 
@@ -41,7 +38,7 @@ namespace SingnalRApi.Controllers
             return Ok("İndirim başarılı bir şekilde eklendi.");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteDisccount(int id)
         {
             var value = _discountService.TGetByID(id);
@@ -63,7 +60,7 @@ namespace SingnalRApi.Controllers
             return Ok("İndirim başarılı bir şekilde güncellendi.");
         }
 
-        [HttpGet("GetDiscount")]
+        [HttpGet("{id}")]
         public IActionResult GetDiscount(int id)
         {
             var value = _discountService.TGetByID(id);

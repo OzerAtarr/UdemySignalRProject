@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
-using SignalR.DtoLayer.AboutDto;
 using SignalR.DtoLayer.ContactDto;
 using SignalR.EntityLayer.Entities;
 
@@ -42,7 +40,7 @@ namespace SingnalRApi.Controllers
             return Ok("İletişim kısmı başarılı bir şekilde eklendi.");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteContact(int id)
         {
             var value = _contactService.TGetByID(id);
@@ -65,7 +63,7 @@ namespace SingnalRApi.Controllers
             return Ok("İletişim alanı güncellendi.");
         }
 
-        [HttpGet("GetContact")]
+        [HttpGet("{id}")]
         public IActionResult GetContact(int id)
         {
             var value = _contactService.TGetByID(id);

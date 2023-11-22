@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SinalRWebUI.Models;
+using SignalRWebUI.Models;
 using System.Diagnostics;
 
-namespace SinalRWebUI.Controllers
+namespace SignalRWebUI.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalR.BusinessLayer.Abstract;
-using SignalR.DtoLayer.AboutDto;
 using SignalR.DtoLayer.BookingDto;
 using SignalR.EntityLayer.Entities;
 
@@ -44,7 +42,7 @@ namespace SingnalRApi.Controllers
             return Ok("Rezervasyon kısmı başarılı bir şekilde eklendi.");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteBooking(int id)
         {
             var value = _bookingService.TGetByID(id);
@@ -68,7 +66,7 @@ namespace SingnalRApi.Controllers
             return Ok("Rezervasyon alanı güncellendi.");
         }
 
-        [HttpGet("GetBooking")]
+        [HttpGet("{id}")]
         public IActionResult GetBooking(int id)
         {
             var value = _bookingService.TGetByID(id);

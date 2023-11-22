@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace SinalRWebUI.Controllers
+namespace SignalRWebUI.Controllers
 {
     public class AdminLayoutController : Controller
     {
