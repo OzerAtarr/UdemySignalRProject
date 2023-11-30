@@ -1,7 +1,8 @@
 ﻿@model List<SignalRWebUI.Dtos.SocialMediaDtos.ResultSocialMediaDto>
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/AdminLayout/Index.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 0;
 }
 
 <div class="content">
@@ -16,7 +17,7 @@
 					</div>
 					<div class="card-body">
 						<div class="card-sub">
-							Sosyal Medya ile ilgili işlemleri yapabilirsiniz.
+							Sosyal Medya ile ilgili işlemleri aşağıdan gerçekleştirebilirsiniz.
 						</div>
 						<table class="table mt-3">
 							<thead>
@@ -31,8 +32,9 @@
 							<tbody>
 								@foreach (var item in Model)
 								{
+									count++;
 									<tr>
-										<td>@item.SocialMediaID</td>
+										<th>@count</th>
 										<td>@item.Title</td>
 										<td>@item.Url</td>
 										<td><a href="/SocialMedia/DeleteSocialMedia/@item.SocialMediaID" class="btn btn-outline-danger">Sil</a></td>

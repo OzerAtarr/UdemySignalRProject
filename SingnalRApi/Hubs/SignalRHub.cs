@@ -12,8 +12,8 @@ namespace SignalRApi.Hubs
         private readonly IMoneyCaseService _moneyCaseService;
         private readonly IMenuTableService _menuTableService;
         private readonly IBookingService _bookingService;
-        //private readonly INotificationService _notificationService;
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, IMenuTableService menuTableService, IBookingService bookingService /*INotificationService notificationService*/)
+        private readonly INotificationService _notificationService;
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, IMenuTableService menuTableService, IBookingService bookingService, INotificationService notificationService)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -21,7 +21,7 @@ namespace SignalRApi.Hubs
             _moneyCaseService = moneyCaseService;
             _menuTableService = menuTableService;
             _bookingService = bookingService;
-            //_notificationService = notificationService;
+            _notificationService = notificationService;
         }
 
         public static int clientCount { get; set; } = 0;
@@ -84,7 +84,7 @@ namespace SignalRApi.Hubs
             await Clients.All.SendAsync("ReceiveMenuTableCount", value3);
 
             var value5 = _productService.TProductPriceAvg();
-            await Clients.All.SendAsync("ReceiveProductPriceAvg", value5);
+            await Clients.All.SendAsync("ReceiveProductPriceAvg", value5.ToString("0.00") + "₺");
 
             var value6 = _productService.TProductAvgPriceByHamburger();
             await Clients.All.SendAsync("ReceiveAvgPriceByHamburger", value6);
@@ -95,48 +95,61 @@ namespace SignalRApi.Hubs
             var value8 = _orderService.TTotalOrderCount();
             await Clients.All.SendAsync("ReceiveTotalOrderCount", value8);
 
-            //var value9 = _productService.TProductPriceBySteakBurger();
-            //await Clients.All.SendAsync("ReceiveProductPriceBySteakBurger", value9);
+            var value9 = _productService.TProductPriceBySteakBurger();
+            await Clients.All.SendAsync("ReceiveProductPriceBySteakBurger", value9);
 
-            //var value10 = _productService.TTotalPriceByDrinkCategory();
-            //await Clients.All.SendAsync("ReceiveTotalPriceByDrinkCategory", value10);
+            var value10 = _productService.TTotalPriceByDrinkCategory();
+            await Clients.All.SendAsync("ReceiveTotalPriceByDrinkCategory", value10);
 
-            //var value11 = _productService.TTotalPriceBySaladCategory();
-            //await Clients.All.SendAsync("ReceiveTotalPriceBySaladCategory", value11);
+            var value11 = _productService.TTotalPriceBySaladCategory();
+            await Clients.All.SendAsync("ReceiveTotalPriceBySaladCategory", value11);
+
+            var value12 = _productService.TProductTotalPrice();
+            await Clients.All.SendAsync("ReceiveProductTotalPrice", value12.ToString() + "₺");
+
+            var value13 = _categoryService.TCategoryCount();
+            await Clients.All.SendAsync("ReceiveCategoryCount", value13);
+
+            var value14 = _productService.TProductCount();
+            await Clients.All.SendAsync("ReceiveProductCount", value14);
+
+            var value15 = _bookingService.TBookingCount();
+            await Clients.All.SendAsync("ReceiveBoookingCount", value15);
+
         }
-        //public async Task GetBookingList()
-        //{
-        //    var values = _bookingService.TGetListAll();
-        //    await Clients.All.SendAsync("ReceiveBookingList", values);
-        //}
-        //public async Task SendNotification()
-        //{
-        //    var value = _notificationService.TNotificationCountByStatusFalse();
-        //    await Clients.All.SendAsync("ReceiveNotificationCountByFalse", value);
+        public async Task GetBookingList()
+        {
+            var values = _bookingService.TGetListAll();
+            await Clients.All.SendAsync("ReceiveBookingList", values);
+        }
+        public async Task SendNotification()
+        {
+            var value = _notificationService.TNotificationCountByStatusFalse();
+            await Clients.All.SendAsync("ReceiveNotificationCountByFalse", value);
 
-        //    var notificationListByFalse = _notificationService.TGetAllNotificationByFalse();
-        //    await Clients.All.SendAsync("ReceiveNotificationListByFalse", notificationListByFalse);
-        //}
-        //public async Task GetMenuTableStatus()
-        //{
-        //    var value = _menuTableService.TGetListAll();
-        //    await Clients.All.SendAsync("ReceiveMenuTableStatus", value);
-        //}
-        //public async Task SendMessage(string user, string message)
-        //{
-        //    await Clients.All.SendAsync("ReceiveMessage", user, message);
-        //}
-        //public override async Task OnConnectedAsync()
-        //{
-        //    clientCount++;
-        //    await Clients.All.SendAsync("ReceiveClientCount", clientCount);
-        //    await base.OnConnectedAsync();
-        //}
-        //public override async Task OnDisconnectedAsync(Exception? exception)
-        //{
-        //    clientCount--;
-        //    await Clients.All.SendAsync("ReceiveClientCount", clientCount);
-        //    await base.OnDisconnectedAsync(exception);
-        //}
+            var notificationListByFalse = _notificationService.TGetAllNotificationByFalse();
+            await Clients.All.SendAsync("ReceiveNotificationListByFalse", notificationListByFalse);
+        }
+        public async Task GetMenuTableStatus()
+        {
+            var value = _menuTableService.TGetListAll();
+            await Clients.All.SendAsync("ReceiveMenuTableStatus", value);
+        }
+        public async Task SendMessage(string user, string message)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
+        public override async Task OnConnectedAsync()
+        {
+            clientCount++;
+            await Clients.All.SendAsync("ReceiveClientCount", clientCount);
+            await base.OnConnectedAsync();
+        }
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            clientCount--;
+            await Clients.All.SendAsync("ReceiveClientCount", clientCount);
+            await base.OnDisconnectedAsync(exception);
+        }
     }
 }

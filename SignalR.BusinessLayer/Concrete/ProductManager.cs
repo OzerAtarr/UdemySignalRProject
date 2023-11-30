@@ -18,9 +18,14 @@ namespace SignalR.BusinessLayer.Concrete
             _productDal = productDal;
         }
 
-        public int TProductCount()
+        public string TProductNameByMaxPrice()
         {
-            return _productDal.ProductCount();
+            return _productDal.ProductNameByMaxPrice();
+        }
+
+        public string TProductNameByMinPrice()
+        {
+            return _productDal.ProductNameByMinPrice();
         }
 
         public void TAdd(Product entity)
@@ -35,7 +40,7 @@ namespace SignalR.BusinessLayer.Concrete
 
         public Product TGetByID(int id)
         {
-            return _productDal.GetByID(id);    
+            return _productDal.GetByID(id);
         }
 
         public List<Product> TGetListAll()
@@ -48,14 +53,9 @@ namespace SignalR.BusinessLayer.Concrete
             return _productDal.GetProductsWithCategories();
         }
 
-        public void TUpdate(Product entity)
+        public int TProductCount()
         {
-            _productDal.Update(entity);
-        }
-
-        public int TProductCountByCategoryNameHamburger()
-        {
-            return _productDal.ProductCountByCategoryNameHamburger();
+            return _productDal.ProductCount();
         }
 
         public int TProductCountByCategoryNameDrink()
@@ -63,24 +63,45 @@ namespace SignalR.BusinessLayer.Concrete
             return _productDal.ProductCountByCategoryNameDrink();
         }
 
+        public int TProductCountByCategoryNameHamburger()
+        {
+            return _productDal.ProductCountByCategoryNameHamburger();
+        }
+
+        public decimal TProductTotalPrice()
+        {
+            return _productDal.ProductTotalPrice();
+        }
+
         public decimal TProductPriceAvg()
         {
             return _productDal.ProductPriceAvg();
         }
 
-        public string TProductNameByMaxPrice()
+        public void TUpdate(Product entity)
         {
-            return _productDal.ProductNameByMaxPrice();
-        }
-
-        public string TProductNameByMinPrice()
-        {
-            return _productDal.ProductNameByMinPrice();
+            _productDal.Update(entity);
         }
 
         public decimal TProductAvgPriceByHamburger()
         {
             return _productDal.ProductAvgPriceByHamburger();
         }
+
+        public decimal TProductPriceBySteakBurger()
+        {
+            return _productDal.ProductPriceBySteakBurger();
+        }
+
+        public decimal TTotalPriceByDrinkCategory()
+        {
+            return _productDal.TotalPriceByDrinkCategory();
+        }
+
+        public decimal TTotalPriceBySaladCategory()
+        {
+            return _productDal.TotalPriceBySaladCategory();
+        }
+
     }
 }

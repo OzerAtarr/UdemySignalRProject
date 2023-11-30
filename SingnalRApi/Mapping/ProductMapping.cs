@@ -2,17 +2,17 @@
 using SignalR.DtoLayer.ProductDto;
 using SignalR.EntityLayer.Entities;
 
-namespace SingnalRApi.Mapping
+namespace SignalRApi.Mapping
 {
-    public class ProductMapping : Profile
-    {
-        public ProductMapping()
-        {
-            CreateMap<Product, ResultProductDto>();
-            CreateMap<Product, ResultProductWithCategory>();
-            CreateMap<Product, CreateProductDto>();
-            CreateMap<Product, UpdateProductDto>();
-            CreateMap<Product, GetProductDto>();
-        }
-    }
+	public class ProductMapping : Profile
+	{
+		public ProductMapping()
+		{
+			CreateMap<Product, ResultProductDto>();
+			CreateMap<Product, ResultProductWithCategory>();
+			CreateMap<Product, CreateProductDto>();
+			CreateMap<Product, UpdateProductDto>();
+			CreateMap<Product, GetProductDto>();
+		}
+	}
 }
